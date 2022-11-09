@@ -40,14 +40,7 @@ perceptron <- function(points, lamda, gamma){
 #Initialize the error in a higher value than ganma, in order to let him entering into the while loop
   error <- 1.5 
   while(error > ganma){
-    plot(points$x1, points$x2, type='n', xlab='x', ylab='y') #Plotting the points 
-    points(points[points$label ==1, 3], points[points$label ==1, 4], col='red')
-    points(points[points$label == -1, 3], points[points$label == -1, 4], col='green')
-    #Plot a straight line with intercept and slope
-    one <- weights[1]
-    two <- weights[2]
-    three <- weights[3]
-    abline(a = one/three * (-1.0), b = two/three * (-1.0), lwd = 6)
+    
     for (i in 1:nrow(points)){
       y_pred[i] <- my_sign(points[i,-1],weights)      #Calculating predictions
       for (j in 1:length(weights)){
@@ -59,6 +52,17 @@ perceptron <- function(points, lamda, gamma){
     #Calculating the error after each epoch
     error <- calculate_error(points$label, points[, -1], weights) 
     vector_error <- c(vector_error, error)
+    
+    #PLOTTING ALL THE GRAPHS TOGETHER
+    par(mfrow=c(1,2)) #Fitting both graphs into the same frame
+    plot(points$x1, points$x2, type='n', xlab='x', ylab='y') #Plotting the points 
+    points(points[points$label ==1, 3], points[points$label ==1, 4], col='red')
+    points(points[points$label == -1, 3], points[points$label == -1, 4], col='green')
+    #Plot a straight line with intercept and slope
+    one <- weights[1]
+    two <- weights[2]
+    three <- weights[3]
+    abline(a = one/three * (-1.0), b = two/three * (-1.0), lwd = 6)
     y <- vector_error
     x <- array(1:length(y))
     plot(x, y, type = 'l', xlab='x', ylab='y', lwd = 8, col = 'orange')#Plotting the error graph updated epoch by epoch
@@ -100,8 +104,8 @@ ganma <- 0.000001 #Taken a small value in order to be very accurate
 result <- perceptron(points, lambda, ganma)
 
 #Printing some interesting results
-print("The final adjusted weights are: ")
+print("Finally, the weights are: ")
 print(result[1])
-print(paste0("Number of epochs: ", result[2]))
+print(paste0("Finally, the number of epochs is: ", result[2]))
 
 ```
