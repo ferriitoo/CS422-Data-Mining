@@ -1,0 +1,107 @@
+
+```{r}
+
+#Clearing the work space
+rm(list=ls())
+
+# Set working directory as needed
+# setwd("C:\Users\ferro\Desktop\Disco Duro (17-08-2022) PRE-CHICAGO\DRIVE\University ( 28-11-2020 )\Master\Chicago IIT\Julen Subjects CHICAGO IIT\S1\CS 422 Data Mining\Assignments\HW_6")
+
+#Reading the dataset from the CSV file
+points <- read.csv("perceptron.csv")
+
+# The Perceptron function
+#
+# PARAMETERS:
+# points: The dataset that is to be separated
+# lamda:  The learning rate
+# gamma:  The error threshold
+#
+# RETURNS
+# A list containing three named elements.  The elements
+# should be named: 
+# "weights" - Contains the final weight vector (learned weights)
+# "epochs"  - Number of epochs it took to converge
+# "error"   - A vector of error calculated at the end of each epoch
+
+perceptron <- function(points, lamda, gamma){
+# --- Your code goes below ---
+# We create n random numbers for the weights
+  n <- 3
+  weights <- runif(3, min = 0, max = 1)
+  counter <- 1
+  epochs <- 1
+  iter <- 1
+#Creating a simple numeric vector, which is empty and nrow(points) long
+  y_pred <- vector(mode = "numeric", length = nrow(points))
+  print(nrow(points))
+#Creating an error vector which will be filled with the calculated errors after each epoch
+  vector_error <- vector()
+#Initialize the error in a higher value than ganma, in order to let him entering into the while loop
+  error <- 1.5 
+  while(error > ganma){
+    plot(points$x1, points$x2, type='n', xlab='x', ylab='y') #Plotting the points 
+    points(points[points$label ==1, 3], points[points$label ==1, 4], col='red')
+    points(points[points$label == -1, 3], points[points$label == -1, 4], col='green')
+    #Plot a straight line with intercept and slope
+    one <- weights[1]
+    two <- weights[2]
+    three <- weights[3]
+    abline(a = one/three * (-1.0), b = two/three * (-1.0), lwd = 6)
+    for (i in 1:nrow(points)){
+      y_pred[i] <- my_sign(points[i,-1],weights)      #Calculating predictions
+      for (j in 1:length(weights)){
+        weights[j] <- weights[j] + lambda * (points$label[i] - y_pred[i]) * points[i, j + 1]
+      }
+      
+      counter <- counter + 1 #Updating the weights by using the data of all the rows
+    }
+    #Calculating the error after each epoch
+    error <- calculate_error(points$label, points[, -1], weights) 
+    vector_error <- c(vector_error, error)
+    y <- vector_error
+    x <- array(1:length(y))
+    plot(x, y, type = 'l', xlab='x', ylab='y', lwd = 8, col = 'orange')#Plotting the error graph updated epoch by epoch
+    epochs <- epochs + 1 #Adding one epoch after each time that we go through the whole dataset 
+  }
+  return(list(weights, epochs, vector_error))
+}
+
+# The sign function, this is the prediction function
+# PARAMETERS:
+# x : The X vector (input that needs to be predicted)
+# weights: The weight vector
+# RETURNS:
+# -1 or 1
+
+my_sign <- function(parameters, weights) {
+  res <- t(as.numeric(parameters))%*%weights 
+  if (res > 0){ 
+    return(1) # If the value is closer to 1, then 1 is predicted
+  } else{
+    return(-1) # If the value is closer to -1, then -1 is predicted
+  }
+}
+
+#Declaring auxiliar functions that usually are repeated
+ 
+calculate_error <- function(label, inputs, weights){ 
+  y_predicted <- c()
+  for (i in 1:length(label)){      
+    y_predicted <- c(y_predicted, my_sign(inputs[i,], weights))
+  }
+  return(sum(abs(label - y_predicted))/length(label)) #Return the average error in the whole epoch
+}
+
+# MAIN ENTRY POINT
+#These hyperparameters can be changed
+lambda <- 0.0005 #Taken a small value in order to let the TA see how the curve gets closer to the wanted one after each epoch, but I higher value will make our model much faster
+ganma <- 0.000001 #Taken a small value in order to be very accurate
+result <- perceptron(points, lambda, ganma)
+
+#Printing some interesting results
+print("The final adjusted weights are: ")
+print(result[1])
+print(paste0("Number of epochs: ", result[2]))
+
+```
