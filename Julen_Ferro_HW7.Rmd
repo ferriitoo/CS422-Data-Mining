@@ -1,0 +1,84 @@
+---
+  title: "Homework 7"
+output: 
+  html_notebook:
+  toc: yes
+toc_float: yes
+---
+  
+```{r}
+
+library(keras)
+library(dplyr)
+library(caret)
+library(rpart)
+library(rpart.plot)
+
+rm(list=ls())
+
+# Set working directory as needed
+setwd("...")
+
+df <- read.csv("wifi_localization.csv")
+
+# Seed the PRNG
+set.seed(1122)
+df <- df[sample(nrow(df)), ] # Shuffle, as all of the data in the .csv file
+                             # is ordered by label!  
+
+train_proportion <- 0.8
+sample <- sample(c(TRUE, FALSE), nrow(df), replace=TRUE, prob=c(train_proportion, 1-train_proportion))
+df_train  <- df[sample, ]
+df_test   <- df[!sample, ]
+
+```
+# --- Your code goes below ---
+
+#DATA DESCRIPTION
+#The CSV file contains 2001 rows, one of them is the header row
+#Each row contains 8 columns (7 wifis and 1 room number)
+
+# (a)
+
+
+```{r}
+
+model <- rpart(room ~., data = df_train, method = 'class')
+rpart.plot(model, extra = 106)
+
+
+```
+
+# (b)
+# Note that in (b) either use a new variable to store the model, or null out
+# the variable that stored the model in (a) if you want to reuse that variable.
+# The reason is that if you don't null it out, the model in (b) will have
+# residual information left over from (a) and your results will not be quite
+# accurate.
+
+
+```{r}
+
+
+
+```
+
+
+# (c) 
+
+
+```{r}
+
+
+
+```
+
+
+# (d)
+
+
+```{r}
+
+
+
+```
