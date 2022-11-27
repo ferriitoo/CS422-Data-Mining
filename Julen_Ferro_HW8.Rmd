@@ -1,0 +1,244 @@
+---
+title: "CS 422"
+author: "Julen Ferro Bañales. Master's in CDS&OR, Illinois Institute of Technology"
+output:
+  pdf_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
+    df_print: paged
+---
+
+<!-- More information in R Markdown can be found at:
+1. https://www.ssc.wisc.edu/sscc/pubs/RFR/RFR_RMarkdown.html  This is 
+   the place to start since it is a short tutorial.
+2. https://rmarkdown.rstudio.com/index.html This contains a longer 
+   tutorial.  Take a look at the cheatsheet in 
+   https://rmarkdown.rstudio.com/lesson-15.html, it is a concise 
+   reference of R Markdown on two pages.
+<-->
+
+## Use this as a template for your homeworks.
+#### Rename it to firstname-lastname.Rmd.
+#### Run all the chunks by clicking on "Run" at the top right of the edit 
+#### window and choose "Run All".  Assuming there were no errors in the
+#### chunk, you should see a "Preview" button become visible on the top
+#### left of the edit window.  Click this button and a html document should
+#### pop up with the output from this R markdown script.
+
+### Part 2.1.a)
+
+Importing required modules.
+
+```{r}
+
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+
+
+```
+
+i) 
+
+```{r}
+
+set.seed(123) # setting a seed for the pseudo-random numbers
+rm(list=ls())
+df <- read.csv(file = "file19.txt",     # TXT data file indicated as string or full path to the file
+           header = TRUE,    # Whether to display the header (TRUE) or not (FALSE)
+           sep = "",          # Separator of the columns of the file
+           dec = ".", 
+           skip = 20, 
+           strip.white = TRUE,
+           skipNul = TRUE)         # Character used to separate decimals of the numbers in the file
+
+plot(df, main="Raw points")
+typeof(df)
+head(df)
+
+
+```
+
+ii) 
+
+```{r}
+
+
+
+```
+
+iii) 
+
+```{r}
+
+
+
+```
+
+
+### Part 2.1.b)
+
+i) 
+
+```{r}
+#Getting the optimal number of clusters
+
+dataframe <- df[, 2:9]
+
+fviz_nbclust(dataframe, kmeans, method = "wss") +
+geom_vline(xintercept = 3, linetype = 2)
+
+
+```
+
+ii) 
+
+```{r}
+
+# Running K-means
+
+k <- kmeans(dataframe, centers=3, nstart=25)
+fviz_cluster(k, data=dataframe)
+
+
+```
+
+iii) 
+
+```{r}
+
+for i in range 1:3{
+ print(paste0("In the ", k, "cluster, there are: ", n, "observations" ))
+}
+
+
+
+```
+
+iv) 
+
+```{r}
+
+
+
+```
+
+v) 
+
+```{r}
+
+
+
+```
+
+vi) 
+
+```{r}
+
+
+
+```
+
+
+### Part 2.2.a)
+
+
+```{r}
+
+
+
+```
+
+### Part 2.1.b)
+
+i) 
+
+```{r}
+
+
+
+```
+
+ii) 
+
+```{r}
+
+
+
+```
+
+### Part 2.1.c)
+
+i) 
+
+```{r}
+
+
+
+```
+
+ii) 
+
+```{r}
+
+
+
+```
+
+iii) 
+
+```{r}
+
+
+
+```
+
+### Part 2.1.d)
+
+i) 
+
+```{r}
+
+
+
+```
+
+ii) 
+
+```{r}
+
+
+
+```
+
+iii) 
+
+```{r}
+
+
+
+```
+
+### Part 2.1.e)
+
+i) 
+
+```{r}
+
+
+
+```
+
+ii) 
+
+```{r}
+
+
+
+```
+
+### FINAL
