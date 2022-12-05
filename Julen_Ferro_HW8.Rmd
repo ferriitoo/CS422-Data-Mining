@@ -21,13 +21,6 @@ output:
    reference of R Markdown on two pages.
 <-->
 
-## Use this as a template for your homeworks.
-#### Rename it to firstname-lastname.Rmd.
-#### Run all the chunks by clicking on "Run" at the top right of the edit 
-#### window and choose "Run All".  Assuming there were no errors in the
-#### chunk, you should see a "Preview" button become visible on the top
-#### left of the edit window.  Click this button and a html document should
-#### pop up with the output from this R markdown script.
 
 ### Part 2.1.
 (a) Data cleanup (0.5 points)
@@ -93,9 +86,12 @@ i)
 ```{r}
 #Getting the optimal number of clusters
 
-fviz_nbclust(df, kmeans, method = "wss") +
+n1 <- fviz_nbclust(df, kmeans, method = "wss") +
 geom_vline(xintercept = 8, linetype = 2)
 kopt = 8
+
+print(n1)
+
 
 ```
 The total OPTIMAL number of needed clusters is eight, as it happens to be the one that leads to the lowest SSE residual value. But any clustering close to eight cluster could be fine, as it would have a similar minimum SSE value. For instance, seven or nine. 
@@ -157,102 +153,126 @@ for (i in 1:kopt){
 
 ```
 
+After having done the coding for the clustering, the Data Scientist's job does not finish. As Data Scientist, we should always be able to know what to do with our data, which experiments to run, and think of which results or analysis are we lookin for in order to get a desired insight from the data set. That is to say, the coding part could be done by any coidng fan, even a child, but the point is to reach to this point and know, spend some time with great criteria in order to extract the information from the data.
 
-### Part 2.2.a)
+That said, it can be easily seen that the rows or the data samples have been classified in terms of their number of teeth. In the first cluster, it can be clearly seen that only the bats are grouped, and the magic is that it that the classification it has not been made by looking at the names of the rows and taking the ones with the "bat" word. But as all the different kind of bats follow the same pattern in the data set, the cluster algotihm has been able to identify it properly and as we can see, it exactly coincides with the aforementioned hypotetical result of the "bat"-word analysis taht has not been carried out.
+
+Same happens for the second cluster, it is made up of information regarding mammals who live in the land.Each  cluster correspond to a group a¡of animals who share any pattern regarding their teeth, such as also the Racoons, Wolves and Foxes. But there are some outliers that have been clustered alone. For instance,the elephant, the walrus or the armadillo. Probably because the algorithm has not been able to find any of their patterns regardin gto teeth distribution, in any other animal.
+
+
+### Part 2.2. a)
 
 
 ```{r}
-
-
+df_s1 <- read.csv("s1.csv",header = TRUE, sep = "," )
+print(paste0("The mean for x is: ", round(mean(df_s1$x), 2)))
+print(paste0("The mean for y is: ", round(mean(df_s1$y), 2)))
+print(paste0("The std for x is: ", round(sd(df_s1$x), 2)))
+print(paste0("The std for y is: ", round(sd(df_s1$y), 2)))
 
 ```
+Taking into account the results of the x and y labels mean and standard deviation, it can be concluded that the data could be treated for clustering without being standardized due to the fact that both, the mean and the deviation are of the same order. Nevertheless, it is a good practice to standardize the data in order to avoid differences in labels numerical values order, influencing the results when computing Manhattan distances for example. 
 
-### Part 2.1.b)
+
+### Part 2.2.b)
 
 i) 
 
 ```{r}
-
+plot(df_s1)
 
 
 ```
 
 ii) 
 
-```{r}
+15 different clusters can be easily seen. In a general overview, it could be said that the clusters are fairly clearly separated, even though there are some popints that are really close to other clusters. 
 
-
-
-```
-
-### Part 2.1.c)
+### Part 2.2.c)
 
 i) 
 
 ```{r}
+n2 <- fviz_nbclust(df_s1, kmeans, method = "wss", k.max = 30) +
+geom_vline(xintercept = 13, linetype = 2)
 
-
+print(n2)
 
 ```
 
 ii) 
 
 ```{r}
+n3 <- fviz_nbclust(df_s1, kmeans, method = "silhouette", k.max = 30) +
+geom_vline(xintercept = 13, linetype = 2)
 
+print(n3)
 
 
 ```
 
 iii) 
 
-```{r}
+When it comes to choose a number of clusters for the algorithm, it must be taken into account the general rule of minimizing the SSE error. Therefore, the largest number of clusters would be chosen due to the fact that the sSE function seems to be monotically decreasing for the number of clusters. But it must also be taken into account the pace at which the SSE residuals decrease. Therefore, any number close to 13 clusters would de a good option in terms of minimal SSE because the SSE minimal value starts to converge, and also taking into account that close to the 12 and 14 clusters zone, there is a small discontinuity in the "Average silhouette width".
 
+In order to be more accurate, a 19 clusters option would also be a really good fit. But its SSE value would be almost the same as for the 13 clusters case. Nevertheless, in the silhouette graph it can be seen that the 19 clusters clustering would have a higher value of "Average silhouette width". 
 
-
-```
-
-### Part 2.1.d)
+### Part 2.2.d)
 
 i) 
 
 ```{r}
 
-
+kopt2 <- kmeans(df_s1, centers=13)
+fviz_cluster(kopt2, df_s1, repel = TRUE)
 
 ```
-
 ii) 
 
-```{r}
+The clustering algorithm did a really good job, but it can be seen that same clusters encompassed more than one group. Therefore, let's check the 19 clusters solution.
 
-
-
-```
-
-iii) 
 
 ```{r}
 
-
+kopt2 <- kmeans(df_s1, centers=19)
+fviz_cluster(kopt2, df_s1, repel = TRUE)
 
 ```
 
-### Part 2.1.e)
+With 19 clusters it seems to be a better or at least more accurate results. But now, it happens otherwise, the same group is clustered by more than one cluster sometimes as it can be seen in the light green and orange cluster.
+
+
+### Part 2.2.e)
 
 i) 
 
-```{r}
+Let's say that a minimum value for the MinPts could be the average one related to the maximum number of acceptable clusters. For instance, 19 clusters classify the data points in 18 clusters made up of 5000 / 20 = 263 data points on average. Therefore, as a cluster number lower than 19 will be taken, it will mean that there will be an average number of points per cluster greater of 263. Therefore, 263 could be defined as a valid value of the MinPts parameter.
 
-
-
-```
 
 ii) 
 
 ```{r}
 
+knn <- kNNdistplot(df_s1, 263, all = FALSE)
 
 
 ```
+
+
+
+```{r}
+
+minpts <- 263
+dbs <- dbscan(df_s1, 60000, MinPts = minpts)
+
+print("\n")
+print("\n")
+print("\n")
+print(paste0("With ", minpts , " MinPts and ", dbs$eps ," eps, ", range(dbs$cluster)[2], " clusters were obtained."))
+
+
+```
+
+
 
 ### FINAL
