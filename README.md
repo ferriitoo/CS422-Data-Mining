@@ -6,21 +6,25 @@ This repository contains the Homework assignments and experiments carried out fo
 
 This subject provides its students with a solid understanding on the R programming langugae along with AI/ML related concepts
 
+📁 ***_HOMEWORK 0:_***
+
+Template
+
 📁 ***_HOMEWORK 1:_***
 
-Other repo
+US-COVID project
 
 📁 ***_HOMEWORK 2:_***
 
-Other repo
+Programming problem: Regressions, ISLR package and Plots
 
 📁 ***_HOMEWORK 3:_***
 
-Other repo
+Decision Trees on the IRIS DATASET
 
 📁 ***_HOMEWORK 4:_***
 
-Other repo
+Metrics: Accuracy, Balanced Accuracy, Precision, Recall, F1 Score, AUC, and ROC curve. Multiclass classifications. "Tan" Data Mining book exercises. 
 
 📁 ***_HOMEWORK 5:_***
 
