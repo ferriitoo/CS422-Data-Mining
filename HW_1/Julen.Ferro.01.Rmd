@@ -1,0 +1,256 @@
+---
+title: "CS 422"
+author: "Julen Ferro, CDS&OR student. Illinois Institute of Technology"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+<!-- More information in R Markdown can be found at:
+1. https://www.ssc.wisc.edu/sscc/pubs/RFR/RFR_RMarkdown.html  This is 
+   the place to start since it is a short tutorial.
+2. https://rmarkdown.rstudio.com/index.html This contains a longer 
+   tutorial.  Take a look at the cheatsheet in 
+   https://rmarkdown.rstudio.com/lesson-15.html, it is a concise 
+   reference of R Markdown on two pages.
+<-->
+
+## Use this as a template for your homeworks.
+#### Rename it to firstname-lastname.Rmd.
+#### Run all the chunks by clicking on "Run" at the top right of the edit 
+#### window and choose "Run All".  Assuming there were no errors in the
+#### chunk, you should see a "Preview" button become visible on the top
+#### left of the edit window.  Click this button and a html document should
+#### pop up with the output from this R markdown script.
+
+### Part 1 (Exercises)
+
+### Part 1.1 (Tan, Chapter 1)
+
+1. Discuss whether or not each of the following activities is a data mining task.
+
+(a) Dividing the customers of a company according to their gender. 
+
+Yes, because it deals with descriptive data. I mean, it tries to play with a data set in order to separate male and female, even tought it is true that it does not extract any insight from the information, but it is kind of data mining. It could be interesting to classify between male or female by paying attention to the patterns that different individuals follow in other kind of data such as the money they spent, the products that they buy and so on, that would be hundred percent data mining.
+
+(b) Dividing the customers of a company according to their profitability. 
+
+Same as the ‘a’. It is kind of Data Mining but, it would be more interesting to predict their profitability taking into account other kind of data about the individuals, that would be hundred percent data mining. 
+
+(c) Computing the total sales of a company.
+
+I don’t think that is any kind of Data Mining. It is just an outcome, there is not any classification nor prediction. 
+
+(d) Sorting a student database based on student identification numbers.
+
+That would be Data Mining because it uses a data set and it sorts it regarding an attribute that in this case is the student identification number.
+
+(e) Predicting the outcomes of tossing a (fair) pair of dice. 
+
+For sure, that would be Data Mining. In fact, it would be a prediction method if it was based on previous experiences. 
+
+(f) Predicting the future stock price of a company using historical records. 
+
+Definitely it would be Data Maning because it would use Maths and Stats (Machine Learning) to find a regression model in order to get an approximate value of the future stock price of a company using past data. 
+
+(g) Monitoring the heart rate of a patient for abnormalities. 
+
+It would be Data Mining if we use the monitored data and we keep it in oder to extract some information or to classify the anomalies. But the mere fact of monitoring the hearth rate would be Data Gathering.
+
+(h) Monitoring seismic waves for earthquake activities. 
+
+Same as ‘g’. It would be Data Gathering, the first step needed in order to use Data Mining techniques to etract some info. For instance, in this case, trying to predict next earthquake activities and their consequent seismic waves.
+
+(i) Extracting the frequencies of a sound wave.
+
+Yes. Data treatment must be done. For example, using R Studio to given a dataset about the sound wave, extract the frequencies of the sound wave.
+
+
+
+3. For each of the following data sets, explain whether or not data privacy is an important issue.
+
+(a) Census data collected from 1900–1950. 
+
+Data privacy could wind up being a problem if the data is related to a name or some further information about the people, so if it appears like for instance, John Graham lives in Chicago and John Graham does not want to say it, it could be a problem. But concerning legal issues, I do think that councils are aware of this problem so they make people sign a document by telling them that they need that info. 
+
+
+(b) IP addresses and visit times of web users who visit your website. 
+
+On the one hand, knowing the IP addresses of the people who has visited your website could end up being an important issue due to the fact that you can get further information about the user such as where does he live, his name and so on. On the other hand, knowing how many times did a person visit your website must not be an important issue due to the fact that it does not relate any information to any individual. It is only some information about an unknown person.
+
+(c) Images from Earth-orbiting satellites.
+
+Asdga It could end up being a problem to filter that info to other countries due to geopolitical issues, but not more than that. It is kind of confidential information.
+
+(d) Names and addresses of people from the telephone book.
+
+That’s really personal so uncless people has authorised that, data privacy could be a concerning issue.
+
+(e) Names and email addresses collected from the Web.
+
+It could be dangerous if the user has not allowed to keep them. That is why whenever your give information about you on the Internet, you should sign some kind of document explaining data privacy related issues. 
+
+### Part 1.2 (Tan, Chapter 2)
+
+2. Classify the following attributes as binary, discrete, or continuous. Also classify them as qualitative (nominal or ordinal) or quantitative (interval or ratio). Some cases may have more than one interpretation, so briefly indicate your reasoning if you think there may be some ambiguity. Example: Age in years. Answer: Discrete, quantitative, ratio
+
+
+
+
+(a) Time in terms of AM or PM. 
+
+Discrete. Quantitative (interval) (it is not ratio because 0 does not mean anything)
+(b) Brightness as measured by a light meter. 
+
+Continuous. Quantitative (ratio)
+
+(c) Brightness as measured by people’s judgments.
+
+Discrete. Qualitative (ordinal).
+
+(d) Angles as measured in degrees between 0 and 360.
+
+Continuous. Quantitative (ratio)
+
+(e) Bronze, Silver, and Gold medals as awarded at the Olympics. 
+
+Discrete. Quantitative (ratio)
+
+(f) Height above sea level. (g) Number of patients in a hospital. 
+
+Continuous. Quantitative (ratio)
+
+(h) ISBN numbers for books. (Look up the format on the Web.) 
+
+International Standard Book Numbers (identifies each book in each 13 digit number)
+Discrete. Qualitative (nominal).
+
+
+(i) Ability to pass light in terms of the following values: opaque, translucent, transparent.
+
+Discrete. Qualitative (ordinal).
+
+
+(j) Military rank. 
+
+Discrete. Qualitative (ordinal).
+
+(k) Distance from the center of campus
+
+Continuous. Quantitative (ratio)
+
+
+(l) Density of a substance in grams per cubic centimeter.
+
+Continuous.Quantitative (ratio)
+
+(m) Coat check number. (When you attend an event, you can often give your coat to someone who, in turn, gives you a number that you can use to claim your coat when you leave.)
+
+
+Discrete. Qualitative (ordinal).
+
+3. What is aggregation? What are the motivations for aggregation? How are the values of attributes handled when aggregating data?
+
+Aggregation means to simplify two or more objects into one. That is to say, to decrease the number of object by losing some kind of irrelevant information. For instance, if we want to know the purchases of each product in each month, we do not need to declare as an object each day if purchases. So we can use the precious object such as the purchases in one day, to sum up them in order to get the purchases in that month.
+
+The main motivation of aggregation is decreasing the object-dimension of the data set in order to concentrate better the information that we are seeking.
+
+The problem of aggregation is that when summarising several objects in one, quantitative attributes can be summed up or averaged. Nevertheless, qualitative ones cannot be summed up. Therefore, they must be ommited or generalised in higher levels such as from TV or Computer, to electronics.
+
+
+
+7. A few months later, you are again approached by the same marketing director as in Exercise 6. This time, he has devised a better approach to measure the extent to which a customer prefers one product over other similar products. He explains, “When we develop new products, we typically create several variations and evaluate which one customers prefer. Our standard procedure is to give our test subjects all of the product variations at one time and then ask them to rank the product variations in order of preference. However, our test subjects are very indecisive, especially when there are more than two products. As a result, testing takes forever. I suggested that we perform the comparisons in pairs and then use these comparisons to get the rankings. Thus, if we have three product variations, we have the customers compare variations 1 and 2, then 2 and 3, and finally 3 and 1. Our testing time with my new procedure is a third of what it was for the old procedure, but the employees conducting the tests complain that they cannot come up with a consistent ranking from  2.6 Exercises 127 the results. And my boss wants the latest product evaluations, yesterday. I should also mention that he was the person who came up with the old product evaluation approach. Can you help me?”
+
+(a) Is the marketing director in trouble? Will his approach work for generating an ordinal ranking of the product variations in terms of customer preference? Explain. 
+
+He is definitely in trouble because his new idea only clarifies the preference between two products, so it will not order the product variations in terms of user preferences.
+
+(b) Is there a way to fix the marketing director’s approach? More generally, what can you say about trying to create an ordinal measurement scale based on pairwise comparisons? 
+
+Taking into account the number of times that each product is chosen and to sort them in terms of the times that they have been selected.
+
+(c) For the original product evaluation scheme, the overall rankings of each product variation are found by computing its average over all test subjects. Comment on whether you think that this is a reasonable approach. What other approaches might you take?
+
+This is a reasonable approach due to the fact that this way we could have great insights about what the subjects think about the products. My approach will be to use an 0 to 10 scale for each product assesment if it is not done and to try to weight some populations assesment if it is biased. 
+
+
+
+12. Discuss why a document-term matrix is an example of a data set that has asymmetric discrete or asymmetric continuous features.
+
+It has asymmetric discrete because it would have a lot of words with 0 times repeated and the number of times that a word can be repeated corresponds to a discrete distribution due to the fact that the spectrum of numbers that could take is finite.
+
+```{r}
+
+library(dplyr)
+
+```
+
+
+
+### Part 2.1-i
+```{r}
+getwd()
+
+data.df <- read.csv("us-covid.csv", sep = ",",  comment.char = "#", header = TRUE)
+
+summary(data.df)
+print(data.df)
+```
+
+### Part 2.1-ii
+```{r}
+data.clean.df <- subset(data.df, select= -confirmed_deaths)
+print(data.clean.df)
+###Printing the cleaned up data
+
+```
+### 2.1-iii
+
+a) and b)
+
+```{r}
+
+print(head(arrange(data.clean.df, desc(total_cases)),6))
+print(tail(arrange(data.clean.df, desc(total_cases)),6))
+
+```
+
+### 2.1-iv
+
+```{r}
+correlation <- pairs.panels(select(data.clean.df, -1, -2))
+
+```
+
+
+a)  The data in the first two columns is not valid for extracting analytical information, there are not numbers, it is a discrete distribution by stages.
+
+b)  Total cases and total deaths are hugely correlated by a value of 0.98, which supposes almost a linear relationship between these two variables. It makes sense since the rate at which people dies has a lot to do with the total cases, but we don't really know if the mathematical relationship of these two variables must be linear.
+
+c) The correlation between the cases on the last 7 days and the case rate per 100k inhabitants is nule. That means that there is no relationship between both events. 
+
+### 2.1-v
+
+a) 
+
+```{r}
+cases <- data.clean.df[,"confirmed"] + data.clean.df[,"probable"]
+deaths <- data.clean.df[,"total_deaths"]
+plot (cases ,deaths)
+
+```
+
+b) The anomaly is based onthe fact that for same states there is not data for confirmed cases nor for probable cases, so they only have the deaths data. Therefore, we can see some data making up a vertical line around x=0.
+
+ 
+c)
+
+```{r}
+
+anom.df <- data.clean.df[data.clean.df$confirmed == 0 | data.clean.df$probable == 0,]
+print(select(anom.df, state, total_deaths, confirmed, probable, total_cases))
+```

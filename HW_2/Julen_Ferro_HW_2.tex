@@ -1,0 +1,633 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={CS 422},
+  pdfauthor={Julen Ferro Bañales. Master's in CDS\&OR, Illinois Institute of Technology},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{CS 422}
+\author{Julen Ferro Bañales. Master's in CDS\&OR, Illinois Institute of
+Technology}
+\date{}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{use-this-as-a-template-for-your-homeworks.}{%
+\subsection{Use this as a template for your
+homeworks.}\label{use-this-as-a-template-for-your-homeworks.}}
+
+\hypertarget{rename-it-to-firstname-lastname.rmd.}{%
+\paragraph{Rename it to
+firstname-lastname.Rmd.}\label{rename-it-to-firstname-lastname.rmd.}}
+
+\hypertarget{run-all-the-chunks-by-clicking-on-run-at-the-top-right-of-the-edit}{%
+\paragraph{Run all the chunks by clicking on ``Run'' at the top right of
+the
+edit}\label{run-all-the-chunks-by-clicking-on-run-at-the-top-right-of-the-edit}}
+
+\hypertarget{window-and-choose-run-all.-assuming-there-were-no-errors-in-the}{%
+\paragraph{window and choose ``Run All''. Assuming there were no errors
+in
+the}\label{window-and-choose-run-all.-assuming-there-were-no-errors-in-the}}
+
+\hypertarget{chunk-you-should-see-a-preview-button-become-visible-on-the-top}{%
+\paragraph{chunk, you should see a ``Preview'' button become visible on
+the
+top}\label{chunk-you-should-see-a-preview-button-become-visible-on-the-top}}
+
+\hypertarget{left-of-the-edit-window.-click-this-button-and-a-html-document-should}{%
+\paragraph{left of the edit window. Click this button and a html
+document
+should}\label{left-of-the-edit-window.-click-this-button-and-a-html-document-should}}
+
+\hypertarget{pop-up-with-the-output-from-this-r-markdown-script.}{%
+\paragraph{pop up with the output from this R markdown
+script.}\label{pop-up-with-the-output-from-this-r-markdown-script.}}
+
+\hypertarget{assignment-number-2}{%
+\subsubsection{Assignment number 2}\label{assignment-number-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(rms)}
+\FunctionTok{library}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{part-2.1}{%
+\subsubsection{Part 2.1}\label{part-2.1}}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+\end{enumerate}
+
+\hypertarget{a.i}{%
+\subsubsection{2.1.a.i)}\label{a.i}}
+
+Because the attibute name of the `Auto' dataset is not quantitative, so
+it does not serve in order to predict anything. It is a qualitative
+nominal attibute that cannot be used in the regression equation.Apart
+from that, the name has nothing to do with the mpg.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1122}\NormalTok{)}
+\NormalTok{index }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(Auto), }\FloatTok{0.95}\SpecialCharTok{*}\FunctionTok{dim}\NormalTok{(Auto)[}\DecValTok{1}\NormalTok{])}
+\NormalTok{train.df }\OtherTok{\textless{}{-}}\NormalTok{ Auto[index, ]}
+\NormalTok{test.df }\OtherTok{\textless{}{-}}\NormalTok{ Auto[}\SpecialCharTok{{-}}\NormalTok{index, ]}
+
+\FunctionTok{summary}\NormalTok{(Auto)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      mpg          cylinders      displacement     horsepower   
+ Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0  
+ 1st Qu.:17.00   1st Qu.:105.0   1st Qu.: 75.0  
+ Median :22.75   Median :4.000   Median :151.0   Median : 93.5  
+ Mean   :23.45   Mean   :5.472   Mean   :194.4   Mean   :104.5  
+ 3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:275.8   3rd Qu.:126.0  
+ Max.   :46.60   Max.   :8.000   Max.   :230.0  
+                                                                
+     weight      acceleration        year           origin     
+ Min.   :1613   Min.   : 8.00   Min.   :70.00   Min.   :1.000  
+ 1st Qu.:2225   1st Qu.:13.78   1st Qu.:73.00   1st Qu.:1.000  
+ Median :2804   Median :15.50   Median :76.00   Median :1.000  
+ Mean   :2978   Mean   :75.98   Mean   :1.577  
+ 3rd Qu.:3615   3rd Qu.:17.02   3rd Qu.:79.00   3rd Qu.:2.000   Max.   :5140   Max.   :24.80   Max.   :82.00   Max.   :3.000  
+                                                               
+                 name    
+ amc matador       :  5  
+ ford pinto        :  5  
+ toyota corolla    :  5  
+ amc gremlin       :  4  
+ amc hornet        :  4  
+ chevrolet chevette:  4  
+ (Other)           :365  
+\end{verbatim}
+
+\hypertarget{a.ii}{%
+\subsubsection{2.1.a.ii)}\label{a.ii}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+
+\NormalTok{train\_c.df }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(train.df, }\AttributeTok{select =} \SpecialCharTok{{-}}\NormalTok{name)}
+\NormalTok{test\_c.df }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(test.df, }\AttributeTok{select =} \SpecialCharTok{{-}}\NormalTok{name)}
+\FunctionTok{summary}\NormalTok{(train\_c.df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      mpg          cylinders      displacement     horsepower    
+ Min.   :3.000   Min.   : 68.0   Min.   : 46.00  
+ 1st Qu.:17.00   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.75  
+ Median :4.000   Median :151.0  
+ Mean   :5.492   Mean   :195.4   Mean   :104.52  
+ 3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:129.00  
+ Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.00  
+     weight      acceleration        year           origin    
+ Min.   :1613   Min.   : 8.00   Min.   :70.00   Min.   :1.00   1st Qu.:2225   1st Qu.:13.78   1st Qu.:73.00   1st Qu.:1.00  
+ Median :2811   Median :15.50   Median :76.00   Median :1.00  
+ Mean   :2978   Mean   :15.54   Mean   :75.96   Mean   :1.57  
+ 3rd Qu.:17.12   3rd Qu.:79.00   3rd Qu.:2.00  
+ Max.   :5140   Max.   :24.80   Max.   :82.00   Max.   :3.00  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{cor}\NormalTok{(train\_c.df),}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+               mpg cylinders displacement horsepower weight
+mpg           1.00     -0.78        -0.80      -0.78  -0.83
+cylinders    -0.78      1.00         0.95       0.84   0.90
+displacement -0.80      0.95         1.00       0.90   0.93
+horsepower   -0.78      0.84         0.90       1.00   0.86
+weight       -0.83      0.90         0.93       0.86   1.00  0.43     -0.51        -0.55      -0.70  -0.43
+year          0.57     -0.34        -0.37      -0.41  -0.30
+origin        0.57     -0.57        -0.62      -0.46  -0.59
+             acceleration  year
+mpg                  0.43   0.57
+cylinders    -0.34  -0.57
+displacement        -0.55 -0.37  -0.62
+horsepower          -0.70 -0.41  -0.46
+weight       -0.30  -0.59
+acceleration         1.00  0.30   0.20
+year          1.00   0.18
+origin               0.20  0.18   1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FunctionTok{cor}\NormalTok{(test\_c.df),}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+               mpg cylinders displacement horsepower weight
+mpg           1.00     -0.79        -0.81      -0.83  -0.88
+cylinders    -0.79      1.00         0.96       0.86   0.93
+displacement -0.81      0.96         1.00       0.94   0.95
+horsepower   -0.83      0.86         0.94       1.00   0.90
+weight       -0.88      0.93         0.95       0.90   1.00
+acceleration  0.24     -0.34        -0.42      -0.49  -0.25
+year          0.74     -0.37        -0.38      -0.54  -0.44
+origin        0.42     -0.61        -0.58      -0.44  -0.52
+             acceleration  year origin
+mpg                  0.24   0.42
+cylinders           -0.34 -0.37  -0.61
+displacement        -0.42 -0.38  -0.58
+horsepower          -0.49 -0.54  -0.44
+weight       -0.44  -0.52
+acceleration         1.00  0.11   0.41         0.11  1.00   0.15
+origin        0.15   1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{model1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cylinders }\SpecialCharTok{+}\NormalTok{ displacement }\SpecialCharTok{+}\NormalTok{ horsepower }\SpecialCharTok{+}\NormalTok{ weight }\SpecialCharTok{+}\NormalTok{ acceleration }\SpecialCharTok{+}\NormalTok{ year }\SpecialCharTok{+}\NormalTok{ origin, }\AttributeTok{data =}\NormalTok{ train\_c.df)}
+\FunctionTok{summary}\NormalTok{(model1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = mpg ~ cylinders + displacement + horsepower + weight + 
+    acceleration + year + origin, data = train_c.df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.6805 -2.1786 -0.0977  1.9180 13.0364 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -1.660e+01  4.780e+00  -3.472 0.000578 ***
+cylinders    -5.235e-01  3.340e-01  -1.567 0.117947    
+displacement  2.042e-02  7.760e-03   2.632 0.008857 ** 
+horsepower   -1.750e-02  1.424e-02  -1.229 0.219908    
+weight       -6.416e-03  6.785e-04  -9.457  < 2e-16 ***
+acceleration  8.742e-02  1.031e-01   0.848 0.396859    
+year          7.383e-01  5.259e-02  14.039  < 2e-16 ***
+origin        1.516e+00  2.893e-01   5.240 2.73e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error:3.367  364 degrees of freedom
+Multiple R-squared: 0.817,  Adjusted R-squared: 0.8135 
+F-statistic: 232.2on 7and 364 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}R{-}sq value is\textquotesingle{}}\NormalTok{ , }\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{r.sq))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "R-sq value is0.817033618528202"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Adjusted R{-}sq value is\textquotesingle{}}\NormalTok{, }\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{adj.r.squared))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}RSE is\textquotesingle{}}\NormalTok{ , }\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{sigma))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "RSE is3.36691839200609"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}RMSE is\textquotesingle{}}\NormalTok{ , }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(model1}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "RMSE is3.33051820488739"
+\end{verbatim}
+
+Taking into account the results, we can see that the model is good but
+some of the attributes or predictors are not really useful due to the
+fact that really do not influence the final mpg result. \#\#\#
+2.1.a.iii)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(train\_c.df ,}\FunctionTok{aes}\NormalTok{( }\AttributeTok{x =}\NormalTok{ mpg, }\AttributeTok{y =}\NormalTok{ model1}\SpecialCharTok{$}\NormalTok{residuals)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Residuals graph\textquotesingle{}}\NormalTok{, }\AttributeTok{x =} \StringTok{\textquotesingle{}mpg\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Residuals\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a.iv}{%
+\subsubsection{2.1.a.iv)}\label{a.iv}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{ggplot}\NormalTok{(model1, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x =}\NormalTok{ model1}\SpecialCharTok{$}\NormalTok{residuals)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Residuals chart\textquotesingle{}}\NormalTok{, }\AttributeTok{x =} \StringTok{\textquotesingle{}Residuals\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Probability\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+The residuals do follow a Gaussian distribution clearly.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\hypertarget{b.i}{%
+\subsubsection{2.1.b.i)}\label{b.i}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rank}\NormalTok{(}\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{coefficients[,}\StringTok{\textquotesingle{}Pr(\textgreater{}|t|)\textquotesingle{}}\NormalTok{], }\AttributeTok{n =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{\textless{}} \DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ (Intercept)    cylinders displacement   horsepower       weight        FALSE        FALSE        FALSE        FALSE         TRUE 
+acceleration         year 
+       FALSE         TRUE         TRUE 
+\end{verbatim}
+
+Weight, year and origin are the most significant ones. It could also be
+drawn from looking at the p values in the aforementioned analysis.
+
+\hypertarget{b.ii}{%
+\subsubsection{2.1.b.ii)}\label{b.ii}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{model2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(mpg }\SpecialCharTok{\textasciitilde{}}\NormalTok{ weight }\SpecialCharTok{+}\NormalTok{ year}\SpecialCharTok{+}\NormalTok{ origin, }\AttributeTok{data =}\NormalTok{ train.df)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}R{-}sq value is\textquotesingle{}}\NormalTok{ , }\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{r.sq))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "R-sq value is0.81258059379783"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Adjusted R{-}sq value is\textquotesingle{}}\NormalTok{, }\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{adj.r.squared))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Adjusted R-sq value is0.811052718203791"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}RSE is\textquotesingle{}}\NormalTok{ , }\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{sigma))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "RSE is3.38907360996063"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}RMSE is\textquotesingle{}}\NormalTok{ , }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(model2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "RMSE is3.37080353826561"
+\end{verbatim}
+
+R-sq value is almost one, so there is a strong linear dependence,
+therefore the model is valid.
+
+\hypertarget{b.iii}{%
+\subsubsection{2.1.b.iii)}\label{b.iii}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA}
+\ConstantTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.iv}{%
+\subsubsection{2.1.b.iv)}\label{b.iv}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{NA}
+\ConstantTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+The residuals of the both models, follow more or less a Gaussian
+distribution as it can be seen in both graphs
+
+\hypertarget{b.v}{%
+\subsubsection{2.1.b.v)}\label{b.v}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{mod1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{r.sq, }\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{adj.r.squared, }\FunctionTok{summary}\NormalTok{(model1)}\SpecialCharTok{$}\NormalTok{sigma, }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(model1}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)))}
+\NormalTok{mod2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{r.sq, }\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{adj.r.squared, }\FunctionTok{summary}\NormalTok{(model2)}\SpecialCharTok{$}\NormalTok{sigma, }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{(model2}\SpecialCharTok{$}\NormalTok{residuals}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)))}
+
+\FunctionTok{print}\NormalTok{(mod1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.8170336 0.8135150 3.3669184 3.3305182
+[1] 0.8125806 0.8110527 3.3890736 3.3708035
+\end{verbatim}
+
+The second model is more cost-efficient due to the fact that perfomrs
+less calculations taking into account that uses a lower number of
+predictors or attributes. We have get rid of the non-important ones.
+Therefore we get the same results with less.
+
+Also p and F values are more important in this second analysis, so it is
+more credible.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{names}\NormalTok{(pred) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Confidence\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lower\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Upper\textquotesingle{}}\NormalTok{)}
+\NormalTok{pred}\SpecialCharTok{$}\NormalTok{Response }\OtherTok{\textless{}{-}}\NormalTok{ test.df[, }\StringTok{\textquotesingle{}mpg\textquotesingle{}}\NormalTok{]}
+
+  \ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{dim}\NormalTok{(pred)[}\DecValTok{1}\NormalTok{])\{}
+    \ControlFlowTok{if}\NormalTok{(pred[x, }\StringTok{\textquotesingle{}Lower\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\textless{}}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Response\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\&}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Response\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\textless{}}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Upper\textquotesingle{}}\NormalTok{]) \{}
+\NormalTok{      pred[x, }\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{] }\OtherTok{=} \DecValTok{1}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{      pred[x, }\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{] }\OtherTok{=} \DecValTok{0}
+\NormalTok{    \}}
+\NormalTok{  \}  }
+\FunctionTok{print}\NormalTok{(pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{number }\OtherTok{=} \FunctionTok{apply}\NormalTok{(pred[}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{)], }\DecValTok{2}\NormalTok{, sum)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observations predicted: \textquotesingle{}}\NormalTok{, number))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Observations predicted: 8"
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{pred }\OtherTok{\textless{}{-}}  \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{predict}\NormalTok{(model1, test.df, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{, }\AttributeTok{level =} \FloatTok{0.95}\NormalTok{))}
+\FunctionTok{names}\NormalTok{(pred) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Confidence\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lower\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Upper\textquotesingle{}}\NormalTok{)}
+\NormalTok{pred}\SpecialCharTok{$}\NormalTok{Response }\OtherTok{\textless{}{-}}\NormalTok{ test.df[, }\StringTok{\textquotesingle{}mpg\textquotesingle{}}\NormalTok{]}
+
+  \ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{dim}\NormalTok{(pred)[}\DecValTok{1}\NormalTok{])\{}
+    \ControlFlowTok{if}\NormalTok{(pred[x, }\StringTok{\textquotesingle{}Lower\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\textless{}}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Response\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\&}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Response\textquotesingle{}}\NormalTok{] }\SpecialCharTok{\textless{}}\NormalTok{ pred[x, }\StringTok{\textquotesingle{}Upper\textquotesingle{}}\NormalTok{]) \{}
+\NormalTok{      pred[x, }\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{] }\OtherTok{=} \DecValTok{1}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{      pred[x, }\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{] }\OtherTok{=} \DecValTok{0}
+\NormalTok{    \}}
+\NormalTok{  \}  }
+\FunctionTok{print}\NormalTok{(pred)}
+\NormalTok{number }\OtherTok{=} \FunctionTok{apply}\NormalTok{(pred[}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Matches\textquotesingle{}}\NormalTok{)], }\DecValTok{2}\NormalTok{, sum)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observations predicted: \textquotesingle{}}\NormalTok{, number))}
+
+ 
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{part-2.1.f}{%
+\subsubsection{Part 2.1.f}\label{part-2.1.f}}
+
+The confidence interval defines to which stand do we accept the errors.
+That is to say, the limit f that we accept will only be defined by the
+confidence interval that we choose.
+
+In the `e' one, we chose the confidence interval, whereas in the `f'
+one, we choose the prediction interval. As it will be explained later,
+the predicton interval it is usually wider than the confidence one. That
+is why in the prediction interval we got 20 observations predicted
+within the interval. It is less restrictive the analysis.
+
+\hypertarget{part-2.1.f.i}{%
+\subsubsection{Part 2.1.f.i}\label{part-2.1.f.i}}
+
+The f one, with the prediction interval got more many matches, 12 more.
+
+\hypertarget{part-2.1.f.ii}{%
+\subsubsection{Part 2.1.f.ii}\label{part-2.1.f.ii}}
+
+It happens because the prediction interval is usually bigger than the
+confidence interval due to the fact that it contains more types of
+errors. For example, compared to the confidence interval, it also
+contains the reducible error appart from the irreducible.
+
+\hypertarget{references}{%
+\subsubsection{References}\label{references}}
+
+Multiple regression model
+
+\url{https://www.analyticsvidhya.com/blog/2020/12/predicting-using-linear-regression-in-r/}
+
+\end{document}

@@ -1,0 +1,236 @@
+---
+title: "CS 422"
+author: "Julen Ferro Bañales. Master's in CDS&OR, Illinois Institute of Technology"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+<!-- More information in R Markdown can be found at:
+1. https://www.ssc.wisc.edu/sscc/pubs/RFR/RFR_RMarkdown.html  This is 
+   the place to start since it is a short tutorial.
+2. https://rmarkdown.rstudio.com/index.html This contains a longer 
+   tutorial.  Take a look at the cheatsheet in 
+   https://rmarkdown.rstudio.com/lesson-15.html, it is a concise 
+   reference of R Markdown on two pages.
+<-->
+
+## Use this as a template for your homeworks.
+#### Rename it to firstname-lastname.Rmd.
+#### Run all the chunks by clicking on "Run" at the top right of the edit 
+#### window and choose "Run All".  Assuming there were no errors in the
+#### chunk, you should see a "Preview" button become visible on the top
+#### left of the edit window.  Click this button and a html document should
+#### pop up with the output from this R markdown script.
+
+### Assignment number 2
+
+```{r}
+
+library(ISLR)
+library(tidyverse)
+library(rms)
+library(psych)
+library(MASS)
+
+
+```
+### Part 2.1 
+
+a)
+
+
+### 2.1.a.i)
+
+Because the attibute name of the 'Auto' dataset is not quantitative, so it does not serve in order to predict anything. It is a qualitative nominal attibute that cannot be used in the regression equation.Apart from that, the name has nothing to do with the mpg.
+
+```{r}
+set.seed(1122)
+index <- sample(1:nrow(Auto), 0.95*dim(Auto)[1])
+train.df <- Auto[index, ]
+test.df <- Auto[-index, ]
+
+summary(Auto)
+```
+
+
+### 2.1.a.ii)
+
+```{r}
+
+
+train_c.df <- subset(train.df, select = -name)
+test_c.df <- subset(test.df, select = -name)
+summary(train_c.df)
+round(cor(train_c.df),2)
+round(cor(test_c.df),2)
+
+```
+```{r}
+
+model1 <- lm(mpg ~ cylinders + displacement + horsepower + weight + acceleration + year + origin, data = train_c.df)
+summary(model1)
+
+print(paste0('R-sq value is' , summary(model1)$r.sq))
+print(paste0('Adjusted R-sq value is', summary(model1)$adj.r.squared))
+print(paste0('RSE is' , summary(model1)$sigma))
+print(paste0('RMSE is' , sqrt(mean(model1$residuals^2))))
+```
+Taking into account the results, we can see that the model is good but some of the attributes or predictors are not really useful due to the fact that really do not influence the final mpg result.
+### 2.1.a.iii)
+
+```{r}
+ggplot(train_c.df ,aes( x = mpg, y = model1$residuals)) + geom_point()+ labs(title = 'Residuals graph', x = 'mpg', y = 'Residuals')
+
+
+```
+
+### 2.1.a.iv)
+
+```{r}
+
+ggplot(model1, aes( x = model1$residuals)) + geom_histogram(fill = 'blue', color = 'black') + labs(title = 'Residuals chart', x = 'Residuals', y = 'Probability')
+
+
+```
+The residuals do follow a Gaussian distribution clearly.
+
+b)
+
+### 2.1.b.i)
+
+```{r}
+rank(summary(model1)$coefficients[,'Pr(>|t|)'], n = 3) < 4
+
+```
+Weight, year and origin are the most significant ones. It could also be drawn from looking at the p values in the aforementioned analysis.
+
+### 2.1.b.ii)
+
+```{r}
+
+model2 <- lm(mpg ~ weight + year+ origin, data = train.df)
+print(paste0('R-sq value is' , summary(model2)$r.sq))
+print(paste0('Adjusted R-sq value is', summary(model2)$adj.r.squared))
+print(paste0('RSE is' , summary(model2)$sigma))
+print(paste0('RMSE is' , sqrt(mean(model2$residuals^2))))
+
+```
+
+R-sq value is almost one, so there is a strong linear dependence, therefore the model is valid. 
+
+### 2.1.b.iii)
+
+```{r}
+
+ggplot(train_c.df ,aes( x = mpg, y = model2$residuals)) + geom_point()+ labs(title = 'Residuals graph', x = 'mpg', y = 'Residuals')
+
+
+```
+
+### 2.1.b.iv)
+
+```{r}
+
+ggplot(model2, aes( x = model2$residuals)) + geom_histogram(fill = 'blue', color = 'black') + labs(title = 'Residuals chart', x = 'Residuals', y = 'Probability')
+
+```
+
+The residuals of the both models, follow more or less a Gaussian distribution as it can be seen in both graphs
+
+### 2.1.b.v)
+
+```{r}
+
+mod1 <- c(summary(model1)$r.sq, summary(model1)$adj.r.squared, summary(model1)$sigma, sqrt(mean(model1$residuals^2)))
+mod2 <- c(summary(model2)$r.sq, summary(model2)$adj.r.squared, summary(model2)$sigma, sqrt(mean(model2$residuals^2)))
+
+print(mod1)
+print(mod2)
+
+```
+
+The second model is more cost-efficient due to the fact that perfomrs less calculations taking into account that uses a lower number of predictors or attributes. We have get rid of the non-important ones. Therefore we get the same results with less.
+
+Also p and F values are more important in this second analysis, so it is more credible. 
+
+c)
+
+```{r}
+
+pred <-  data.frame(predict(model1, test.df, interval = "confidence", level = 0.95))
+names(pred) <- c('Confidence', 'Lower', 'Upper')
+pred$Response <- test.df[, 'mpg']
+
+  for (x in 1:dim(pred)[1]){
+    if(pred[x, 'Lower'] < pred[x, 'Response'] & pred[x, 'Response'] < pred[x, 'Upper']) {
+      pred[x, 'Matches'] = 1
+    } else{
+      pred[x, 'Matches'] = 0
+    }
+  }  
+print(pred)
+number = apply(pred[c('Matches')], 2, sum)
+print(paste0('Observations predicted: ', number))
+
+
+
+
+```
+
+e)
+
+```{r}
+
+pred <-  data.frame(predict(model1, test.df, interval = "prediction", level = 0.95))
+names(pred) <- c('Confidence', 'Lower', 'Upper')
+pred$Response <- test.df[, 'mpg']
+
+  for (x in 1:dim(pred)[1]){
+    if(pred[x, 'Lower'] < pred[x, 'Response'] & pred[x, 'Response'] < pred[x, 'Upper']) {
+      pred[x, 'Matches'] = 1
+    } else{
+      pred[x, 'Matches'] = 0
+    }
+  }  
+print(pred)
+number = apply(pred[c('Matches')], 2, sum)
+print(paste0('Observations predicted: ', number))
+
+ 
+```
+
+
+
+
+
+
+### Part 2.1.f
+
+The confidence interval defines to which stand do we accept the errors. That is to say, the limit f that we accept will only be defined by the confidence interval that we choose.
+
+In the 'e' one, we chose the confidence interval, whereas in the 'f' one, we choose the prediction interval. As it will be explained later, the predicton interval it is usually wider than the confidence one. That is why in the prediction interval we got 20 observations predicted within the interval. It is less restrictive the analysis. 
+
+
+
+
+### Part 2.1.f.i
+The f one, with the prediction interval got more many matches, 12 more.
+
+
+### Part 2.1.f.ii
+
+It happens because the prediction interval is usually bigger than the confidence interval due to the fact that it contains more types of errors. For example, compared to the confidence interval, it also contains the reducible error appart from the irreducible. 
+
+
+
+### References
+Multiple regression model
+
+https://www.analyticsvidhya.com/blog/2020/12/predicting-using-linear-regression-in-r/

@@ -1,0 +1,341 @@
+---
+title: "CS 422"
+author: "Julen Ferro Bañales. Master's in CDS&OR, Illinois Institute of Technology"
+output:
+  pdf_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  html_document:
+    toc: yes
+    df_print: paged
+---
+
+
+```{r}
+#set up of the program, importing required modules
+getwd()
+library(rpart)
+library(rpart.plot)
+library(caret)
+library(ROCR)
+library(dplyr)
+
+```
+
+
+### Part 2.1
+### Part 1.A
+
+
+```{r}
+#The hard way of cleaning data using which
+
+test.df <- read.csv('adult-test.csv', sep = ",", header = TRUE)
+train.df <- read.csv('adult-train.csv', sep = ",", header = TRUE)
+
+logic_1 <- c(test.df$age == "?", test.df$workclass == "?", test.df$fnlwgt == "?",
+             test.df$education == "?", test.df$education_num == "?",                            test.df$marital_status == "?", test.df$occupation == "?",
+             test.df$relationship == "?", test.df$race == "?", test.df$sex == "?", 
+             test.df$capital_gain == "?", test.df$capital_loss == "?",
+             test.df$hours_per_week == "?", test.df$native_country == "?")
+
+             
+outliers <- sum(test.df == "?")
+if ( outliers == 0){
+  print("The data is already cleaned up")
+} else{
+  array_1 = which(test.df$native_country == "?" | 
+                    test.df$occupation == "?" )
+  array_2 = which(train.df$native_country == "?" |
+                    train.df$occupation == "?")
+}
+
+test_c.df <- test.df[-c(array_1), ]
+train_c.df <- train.df[-c(array_2), ]
+```
+
+````{r}
+#The easy way for cleaning data using for loop
+
+outliers <- sum(test.df == "?")
+if ( outliers == 0){
+  print("The data is already cleaned up")
+} else{
+  for (k in 1:ncol(test.df)) {
+    test.df = filter(test.df, test.df[, c(k)] != '?')
+  }
+  for (k in 1:ncol(train.df)) {
+    train.df = filter(train.df, train.df[, c(k)] != '?')
+  }
+}
+
+summary(train_c.df)
+summary(test_c.df)
+
+```
+
+### Part 1-B.
+
+```{r}
+set.seed(1122)
+
+mytree <- rpart(income ~ 
+             age + workclass + fnlwgt +
+             education + education_num +
+             marital_status + occupation +
+             relationship + race + sex + 
+             capital_gain + capital_loss +
+             hours_per_week + native_country,
+             train_c.df, method = "class")
+
+rpart.plot(mytree, extra=104, fallen.leaves=T, type=4, main="Income decision tree")
+
+
+```
+i) By taking a look at the plotted decision tree, it can be seen that the three most important predictors in the model are: relationship, capital_gain and education. 
+
+ii) The first prediction is done based on the 'relationship' predictor. 
+
+The most likely predicted class will be <=50K class. It can be seen that in the 25% of the cases we will get a > 50K classification (from now on, a YES classification). 
+
+
+
+
+### Part 1-C 
+
+```{r}
+#now we will use the trained model by using as input the testing data
+
+model <- rpart(income ~ 
+             age + workclass + fnlwgt +
+             education + education_num +
+             marital_status + occupation +
+             relationship + race + sex + 
+             capital_gain + capital_loss +
+             hours_per_week + native_country,
+             test_c.df, method = "class")
+
+#print(test_c.df$income)
+#print(pred)
+
+pred <- predict(model, test_c.df, type = "class")
+test_c.df$income <- ifelse(test_c.df$income==">50K", 1, 0)
+train_c.df$income <- ifelse(train_c.df$income==">50K", 1, 0)
+income <- test_c.df$income
+pred <- ifelse(pred==">50K", 1, 0)
+
+
+cm <- confusionMatrix(data = factor(pred), reference = factor(income), positive='1')
+print(cm)
+
+sensitivity = round(cm$byClass['Sensitivity'], digits = 3)
+specificity = round(cm$byClass['Specificity'], digits = 3)
+
+balanced_accuracy_1 = round((sensitivity + specificity)/2, digits=3)
+balanced_accuracy_2 = round(cm$byClass['Balanced Accuracy'], digits=3)
+pred_pos_value_1 = round(cm$byClass["Pos Pred Value"], digits = 3)
+
+
+```
+i) The balanced accuracy is more meaningful than the accuracy, so we proceed to make the calculation. 
+
+```{r}
+
+if(balanced_accuracy_1 == balanced_accuracy_2){
+  print("\nThe balanced accuracy is: ")
+  print(balanced_accuracy_1)
+} else{
+  print("The calculation of the balanced accuracy is not correct")
+}
+
+```
+
+ii) The balanced error rate: 
+
+```{r}
+balanced_error = round(1.0 - balanced_accuracy_1, digits = 3)
+print(paste0("The balanced error rate: " , balanced_error))
+
+
+```
+
+iii) The sensitivity and the specificity:
+
+```{r}
+
+print(paste0("The sensitivity is: ", sensitivity))
+print(paste0("The specificity is: ", specificity))
+
+```
+
+
+iv) The AUC of the ROC
+
+```{r}
+
+# ROC curve
+pred.rocr <- predict(model, newdata=test_c.df, type="prob")[,2]
+f.pred <- prediction(pred.rocr, test_c.df$income)
+f.perf <- performance(f.pred, "tpr", "fpr")
+plot(f.perf, colorize=T, lwd=3)
+abline(0,1)
+auc <- performance(f.pred, measure = "auc")
+value = round(auc@y.values[[1]], digits = 3)
+print(paste0("The Area Under the Curve (AUC) is: ", value))
+
+```
+### Part 1-D
+
+```{r}
+
+printcp(model)
+plotcp(model)
+cpx <- model$cptable[which.min(model$cptable[,"xerror"]), "CP"]
+pruned.model <- prune(model, cp=cpx)
+predic <- predict(pruned.model, test_c.df, type = "class")
+
+rpart.plot(model, extra=104, fallen.leaves=T, type=4, main="Income decision tree")
+
+```
+
+In order to decide if the decision tree should be pruned or not, we have to look at the xerror and cp values. This last one is the threshold of impurity decrease that we admit on each split. In case of admitting one of the splits, the chosen split will be the one whose xerror is the lowest, in order to get the smallest final impurity, that is to say, the highest information gain. 
+
+Taking into account the plotted information, the decision tree should not be pruned. In case of having to prune the tree, we would choose the option with the lowest xerror value. 
+
+We decide not to prune it due to the fact that after having done several subtrees, the xerror continues decerasing, therefore it has not arrived to its minimum. This evolution of the function tells us that we have not arrived yet to the overfitting in which the xerror looses its monotical character and starts going up and down. Taking into account that making another subtree will not wind up in overfitting yet, we can also deduce that pruning the last tree will not be a good choice because we have clearance for making more subtrees without reaching the overfitting (prunning is suggested when the split number is that large that the overfitting is reached.).
+
+
+### Part 1-E
+i) 
+
+```{r}
+#imbalance in the training, so undersampling in the majority class will be used
+set.seed(1122)
+
+true_train <- sum(train_c.df$income == '1')
+false_train <- sum(train_c.df$income == '0')
+
+print(paste0("In the train dataset there are ", true_train, " samples classified as TRUE"))
+print(paste0("In the train dataset there are ", false_train, " samples classified as FALSE"))
+
+if (true_train > false_train){
+  print("The majority case is TRUE, therefore TRUE classifications must be undersampled")
+} else{
+  print("The majority case is FALSE, therefore FALSE classifications must be undersampled")
+  
+}
+
+
+
+```
+
+ii) 
+
+```{r}
+
+array_false <- which(train_c.df$income == FALSE)
+array_true <- which(train_c.df$income == TRUE)
+
+false_train_c.df <- filter(train_c.df, income == FALSE)
+true_train_c.df <- filter(train_c.df, income == TRUE)
+
+print(nrow(false_train_c.df))
+print(nrow(true_train_c.df))
+under_false <- sample_n(false_train_c.df, size = true_train)
+
+train.df <- rbind(true_train_c.df, under_false)
+print(nrow(train.df))
+
+```
+
+iii)
+
+```{r}
+
+model_2 <- rpart(income ~ .,train.df, method = "class")
+pred_2 <- predict(model_2, test_c.df, type = "class")
+
+cm_2 <- confusionMatrix(data = factor(pred_2), reference = factor(income), positive='1')
+
+sensitivity_2 = round(cm_2$byClass['Sensitivity'], digits = 3)
+specificity_2 = round(cm_2$byClass['Specificity'], digits = 3)
+pred_pos_value_2 = round(cm_2$byClass["Pos Pred Value"], digits = 3)
+
+balanced_accuracy_3 = round(cm_2$byClass['Balanced Accuracy'], digits=3)
+balanced_error_3 = round(1.0 - balanced_accuracy_3, digits = 3)
+
+```
+
+i- 
+
+```{r}
+
+print(paste0("The balanced accuracy: " , balanced_accuracy_3))
+
+```
+
+ii- 
+
+```{r}
+
+print(paste0("The balanced error rate: " , balanced_error_3))
+
+```
+
+iii- 
+
+```{r}
+
+print(paste0("The sensitivity is: ", sensitivity_2))
+print(paste0("The specificity is: ", specificity_2))
+
+```
+
+iv- 
+
+```{r}
+
+# ROC curve
+pred.rocr <- predict(model_2, newdata=train.df, type="prob")[,2]
+f.pred_2 <- prediction(pred.rocr, train.df$income)
+f.perf_2 <- performance(f.pred_2, "tpr", "fpr")
+plot(f.perf_2, colorize=T, lwd=3)
+abline(0,1)
+auc_2 <- performance(f.pred_2, measure = "auc")
+value_2 = round(auc_2@y.values[[1]], digits = 3)
+print(paste0("The Area Under the Curve (AUC) is: ", value_2))
+
+
+```
+
+### Part 1-F
+
+```{r}
+
+print(paste0("The sensitivity is - "," Imbalanced: ", sensitivity," Balanced: ", sensitivity_2))
+print(paste0("The specificity is - "," Imbalanced: ", specificity, " Balanced: ", specificity_2))
+print(paste0("The balanced accuracy is - "," Imbalanced: ", balanced_accuracy_1, " Balanced: ", balanced_accuracy_3))
+print(paste0("The balanced error is - ", " Imbalanced: ", balanced_error, " Balanced: ", balanced_error_3))
+print(paste0( "The Pred Positive Value is - ", " Imbalanced: ", pred_pos_value_1, " Balanced: ", pred_pos_value_2))
+print(paste0( "The AUC value is - ", " Imbalanced: ", value, " Balanced: ", value_2))
+
+
+```
+The only value that has not changed is the AUC. It seems that the confusion matrixes of the new and old experiments have been almost identical, so it should not matter which model to choose due to the fact that both have the same AUC. Indeed, the model is the same, it only changes the input dataset.  
+
+Nevertheless, due to the fact of getting the sample balanced, the next changes have appeared:
+
+The sensitivity has greatly increased.
+The specificity has greatly decreased.
+The balanced accuracy has slightly increased.
+The balanced error has decreased. 
+The Predicted Positive Value has decreased. 
+
+Overall comments on the most meaningful ratios (sensitivity, specificity, accuracy):
+Given a positive sample, the balanced model classifies better the positives, than the previous one did, but given a negative sample, it classifies worse than the previous one did. Therefore, the new model is more trustful than the previous whenever it classifies as positive, but is more likely to make a mistake when it classifies something as negative. Due to the fact that the balanced accuracy is the average between the specificity and the sensitivity, as the sensitivity is increased to a greater extent than the specificity is decreased, the mean increases and gives us a more accurate model. 
+
+It must be pointed out that the balanced error or the balanced accuracy in the balanced sample, can be calculated as the normal error or normal accuracy. Unlike in the unbalanced samples.
+
+
