@@ -1,0 +1,134 @@
+---
+title: "CS 422"
+author: "Julen Ferro Bañales., Illinois Institute of Technology"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+<!-- More information in R Markdown can be found at:
+1. https://www.ssc.wisc.edu/sscc/pubs/RFR/RFR_RMarkdown.html  This is 
+   the place to start since it is a short tutorial.
+2. https://rmarkdown.rstudio.com/index.html This contains a longer 
+   tutorial.  Take a look at the cheatsheet in 
+   https://rmarkdown.rstudio.com/lesson-15.html, it is a concise 
+   reference of R Markdown on two pages.
+<-->
+
+
+
+### Part 1-B
+```{r}
+library(arules)
+library(arulesViz)
+getwd()
+
+rm(list=ls())
+
+#### Read the data directly in as **transactions** and inspect them.
+tr_1k <- read.transactions("tr-1k-canonical.csv", sep=",")
+tr_5k <- read.transactions("tr-5k-canonical.csv", sep=",")
+tr_20k <- read.transactions("tr-20k-canonical.csv", sep=",")
+tr_75k <- read.transactions("tr-75k-canonical.csv", sep=",")
+
+#### Getting the itemsets that have a support greater than 0.08
+
+f_is_1k <- apriori(tr_1k, parameter=list(support=0.08, target="frequent itemsets"))
+inspect(sort(f_is_1k, decreasing = T, by="count"))
+rm(f_is_1k)
+
+f_is_5k <- apriori(tr_5k, parameter=list(support=0.08, target="frequent itemsets"))
+inspect(sort(f_is_5k, decreasing = T, by="count"))
+rm(f_is_5k)
+
+f_is_20k <- apriori(tr_20k, parameter=list(support=0.08, target="frequent itemsets"))
+inspect(sort(f_is_20k, decreasing = T, by="count"))
+rm(f_is_20k)
+
+f_is_75k <- apriori(tr_75k, parameter=list(support=0.08, target="frequent itemsets"))
+inspect(sort(f_is_75k, decreasing = T, by="count"))
+rm(f_is_75k)
+
+```
+```{r}
+
+
+#### We look for rules and we establish the minsup.
+rules_1k <- apriori(tr_1k, parameter = list(support=0.01, conf = 0.2))
+summary(rules_1k)
+inspect(head(rules_1k, by="confidence"))
+
+### We do the same for the 75k case
+rules_75k <- apriori(tr_75k, parameter = list(support=0.01, conf = 0.2))
+summary(rules_75k)
+inspect(head(rules_75k, by="confidence"))
+
+```
+
+### Part 1-C
+
+**(c) [1 point] Given the above output, respond to the following question: Compare the rules you obtained for
+each different subset (1,000 – 75,000 transactions). How does the number of transactions affect the results you
+observed? (Write the answer in your R markup file, easily identified.)**
+
+
+The first rules obtained for the 1k dataset are as follows:
+
+[1] {Chocolate Tart,                                                                          
+     Walnut Cookie}        => {Vanilla Frappuccino}   0.018          1    0.018 13.51351    18
+[2] {Vanilla Frappuccino,                                                                     
+     Walnut Cookie}        => {Chocolate Tart}        0.018          1    0.018 19.60784    18
+[3] {Apricot Croissant,                                                                       
+     Hot Coffee}           => {Blueberry Tart}        0.032          1    0.032 12.34568    32
+[4] {Raspberry Cookie,                                                                        
+     Raspberry Lemonade}   => {Lemon Cookie}          0.029          1    0.029 15.15152    29
+
+
+
+The first rules obtained for the 75k dataset are as follows:
+
+[1] {Green Tea,                                                                                 
+     Lemon Cookie,                                                                              
+     Raspberry Cookie,                                                                          
+     Raspberry Lemonade} => {Lemon Lemonade}     0.02073333  1.0000000 0.02073333 14.65416  1555
+[2] {Green Tea,                                                                                 
+     Lemon Cookie,                                                                              
+     Lemon Lemonade,                                                                            
+     Raspberry Cookie}   => {Raspberry Lemonade} 0.02073333  1.0000000 0.02073333 14.76087  1555
+[3] {Green Tea,                                                                                 
+     Lemon Cookie,                                                                              
+     Lemon Lemonade,                                                                            
+     Raspberry Lemonade} => {Raspberry Cookie}   0.02073333  1.0000000 0.02073333 14.78415  1555
+[4] {Green Tea,                                                                                 
+     Lemon Lemonade,                                                                            
+     Raspberry Cookie,                                                                          
+     Raspberry Lemonade} => {Lemon Cookie}       0.02073333  0.9993573 0.02074667 14.69355  1555
+     
+By looking at both results two clair lessons can be learned. In the first place, the fact that using a larger dataset with much more transactions leads to developing more complex rules. That is to say, the rules for the 1k dataset are much more simpler, only comprising two items as antecedent, while in the rules for the 75k dataset, the antecedents usually contains four items.
+
+It also can be said, that the support for the rules in both datasets is almost the same 0.02. About, the confidence, for the first rules in the both datasets the confidence is hundred percent. That means that whenever an antecedent occurs, it always occurs the consequence. But in the 75k case, from the forth rule onwards, the confidence get lower than one hundred percent, but still really good.  
+
+### Part 1-D
+
+**(d) [1 point] Answer the following questions for the 75,000 transactions dataset using the same support level as
+determined in (b):
+(i) What is the most frequently purchased item or itemset?**
+Coffe Eclair with a 0.109 of support. 
+
+**(ii) What is the least frequently purchased item or itemset**
+Opera Cake with a 0.082 of support.
+
+
+```{r}
+f_is_75k <- apriori(tr_75k, parameter=list(support=0.08, target="frequent itemsets"))
+inspect(sort(f_is_75k, decreasing = F, by="count"))
+inspect(sort(f_is_75k, decreasing = T, by="count"))
+rm(f_is_75k)
+
+
+```
+
